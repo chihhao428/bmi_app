@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 # 获取环境变量中的数据库 URL
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL').replace("://", "ql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL').replace("://", "postgres://hrc_user:u7IVhdmQSLnWxgbzNnNdIKalQu1XCJUc@dpg-cpkghm4f7o1s73conon0-a/hrc", 1)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
