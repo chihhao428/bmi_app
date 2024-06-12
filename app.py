@@ -53,7 +53,7 @@ def plot():
     bmis = [record.bmi for record in records]
     
     # 创建子图
-    fig = make_subplots(rows=1, cols=2, subplot_titles=("Height vs Weight", "BMI Distribution"))
+    fig = make_subplots(rows=2, cols=2, subplot_titles=("Height vs Weight", "BMI Distribution","Height vs BMI","Height vs Weight"))
 
     # 添加身高 vs 体重散点图
     fig.add_trace(
@@ -66,6 +66,17 @@ def plot():
         go.Histogram(x=bmis, nbinsx=20, name='BMI Distribution'),
         row=1, col=2
     )
+
+    # 创建折线图
+    #fig = go.Figure()
+    fig.add_trace(go.Scatter(x=heights, y=bmis, mode='lines', name='BMI'))
+    fig.add_trace(go.Scatter(x=heights, y=weights, mode='lines', name='Weight'))
+
+    # 更新图表布局
+    fig.update_layout(title_text="BMI and Weight Analysis", xaxis_title="Height (cm)")
+
+    # 将图表以 HTML 格式返回
+    return fig.to_html()
 
     # 更新图表布局
     fig.update_layout(title_text="BMI Records Analysis", showlegend=False)
