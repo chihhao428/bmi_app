@@ -51,7 +51,9 @@ def plot():
     heights = [record.height for record in records]
     weights = [record.weight for record in records]
     bmis = [record.bmi for record in records]
+    
     #--------------------------------------------------------
+    
     # 创建子图
     #fig = make_subplots(rows=2, cols=2, subplot_titles=("Height vs Weight", "BMI Distribution","Height vs BMI","Height vs Weight"))
     #fig = make_subplots(rows=1, cols=2, subplot_titles=("Height vs Weight", "BMI Distribution"))
@@ -76,18 +78,30 @@ def plot():
     #fig.update_layout(title_text="BMI and Weight Analysis", xaxis_title="Height (cm)")
 
   
-    # 创建三维图表-------------------------------------------------------------------------
-    fig = go.Figure(data=[go.Scatter3d(x=heights, y=weights, z=bmis, mode='markers', marker=dict(size=5))])
-
-    # 更新图表布局
-    fig.update_layout(title_text="BMI, Height, and Weight Analysis", 
-                      scene=dict(xaxis_title='Height (cm)', yaxis_title='Weight (kg)', zaxis_title='BMI'))
+    # 设置颜色，BMI 大于 25 的为红色，小于 17 的为绿色，其他为蓝色
+    colors = ['red' if bmi > 25 else 'green' if bmi < 17 else 'blue' for bmi in bmis]
     
-    # 将图表以 HTML 格式返回
-    return fig.to_html()
+    # 创建三维散点图
+    fig = go.Figure(data=[go.Scatter3d(
+        x=heights, 
+        y=weights, 
+        z=bmis, 
+        mode='markers', 
+        marker=dict(
+            size=5,
+            color=colors  # 使用颜色列表来区分不同的 BMI
+        )
+    )])
 
     # 更新图表布局
-    fig.update_layout(title_text="BMI Records Analysis", showlegend=False)
+    fig.update_layout(
+        title_text="BMI, Height, and Weight Analysis", 
+        scene=dict(
+            xaxis_title='Height (cm)', 
+            yaxis_title='Weight (kg)', 
+            zaxis_title='BMI'
+        )
+    )
 
     # 将图表以 HTML 格式返回
     return fig.to_html()
