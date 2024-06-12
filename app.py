@@ -51,21 +51,21 @@ def plot():
     heights = [record.height for record in records]
     weights = [record.weight for record in records]
     bmis = [record.bmi for record in records]
-    
+    #--------------------------------------------------------
     # 创建子图
     #fig = make_subplots(rows=2, cols=2, subplot_titles=("Height vs Weight", "BMI Distribution","Height vs BMI","Height vs Weight"))
-    fig = make_subplots(rows=1, cols=2, subplot_titles=("Height vs Weight", "BMI Distribution"))
+    #fig = make_subplots(rows=1, cols=2, subplot_titles=("Height vs Weight", "BMI Distribution"))
     # 添加身高 vs 体重散点图
-    fig.add_trace(
-        go.Scatter(x=heights, y=weights, mode='markers', name='Height vs Weight'),
-        row=1, col=1
-    )
+    #fig.add_trace(
+    #    go.Scatter(x=heights, y=weights, mode='markers', name='Height vs Weight'),
+    #    row=1, col=1
+    #)
 
     # 添加 BMI 直方图
-    fig.add_trace(
-        go.Histogram(x=bmis, nbinsx=20, name='BMI Distribution'),
-        row=1, col=2
-    )
+    #fig.add_trace(
+    #    go.Histogram(x=bmis, nbinsx=20, name='BMI Distribution'),
+    #    row=1, col=2
+    #)
 
     # 创建折线图
     #fig = go.Figure()
@@ -73,8 +73,16 @@ def plot():
     #fig.add_trace(go.Scatter(x=heights, y=weights, mode='lines', name='Weight'),row=2,col=2)
 
     # 更新图表布局
-    fig.update_layout(title_text="BMI and Weight Analysis", xaxis_title="Height (cm)")
+    #fig.update_layout(title_text="BMI and Weight Analysis", xaxis_title="Height (cm)")
 
+  
+    # 创建三维图表-------------------------------------------------------------------------
+    fig = go.Figure(data=[go.Scatter3d(x=heights, y=weights, z=bmis, mode='markers', marker=dict(size=5))])
+
+    # 更新图表布局
+    fig.update_layout(title_text="BMI, Height, and Weight Analysis", 
+                      scene=dict(xaxis_title='Height (cm)', yaxis_title='Weight (kg)', zaxis_title='BMI'))
+    
     # 将图表以 HTML 格式返回
     return fig.to_html()
 
