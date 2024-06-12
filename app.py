@@ -53,8 +53,8 @@ def plot():
     bmis = [record.bmi for record in records]
     
     # 创建子图
-    fig = make_subplots(rows=2, cols=2, subplot_titles=("Height vs Weight", "BMI Distribution","Height vs BMI","Height vs Weight"))
-
+    #fig = make_subplots(rows=2, cols=2, subplot_titles=("Height vs Weight", "BMI Distribution","Height vs BMI","Height vs Weight"))
+    fig = make_subplots(rows=1, cols=2, subplot_titles=("Height vs Weight", "BMI Distribution"))
     # 添加身高 vs 体重散点图
     fig.add_trace(
         go.Scatter(x=heights, y=weights, mode='markers', name='Height vs Weight'),
@@ -69,8 +69,8 @@ def plot():
 
     # 创建折线图
     #fig = go.Figure()
-    fig.add_trace(go.Scatter(x=heights, y=bmis, mode='lines', name='BMI'),row=2,col=1)
-    fig.add_trace(go.Scatter(x=heights, y=weights, mode='lines', name='Weight'),row=2,col=2)
+    #fig.add_trace(go.Scatter(x=heights, y=bmis, mode='lines', name='BMI'),row=2,col=1)
+    #fig.add_trace(go.Scatter(x=heights, y=weights, mode='lines', name='Weight'),row=2,col=2)
 
     # 更新图表布局
     fig.update_layout(title_text="BMI and Weight Analysis", xaxis_title="Height (cm)")
