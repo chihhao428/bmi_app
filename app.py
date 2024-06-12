@@ -1,5 +1,7 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from plotly.subplots import make_subplots
+import plotly.graph_objs as go
 import os
 
 # 创建 Flask 应用
