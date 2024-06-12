@@ -40,6 +40,37 @@ def index():
     records = BMIRecord.query.all()
     return render_template('index.html', records=records)
 
+@app.route('/plot')
+def plot():
+    # 从数据库中查询数据
+    records = BMIRecord.query.all()
+    
+    # 提取身高、体重和 BMI 数据
+    heights = [record.height for record in records]
+    weights = [record.weight for record in records]
+    bmis = [record.bmi for record in records]
+    
+    # 创建子图
+    fig = make_subplots(rows=1, cols=2, subplot_titles=("Height vs Weight", "BMI Distribution"))
+
+    # 添加身高 vs 体重散点图
+    fig.add_trace(
+        go.Scatter(x=heights, y=weights, mode='markers', name='Height vs Weight'),
+        row=1, col=1
+    )
+
+    # 添加 BMI 直方图
+    fig.add_trace(
+        go.Histogram(x=bmis, nbinsx=20, name='BMI Distribution'),
+        row=1, col=2
+    )
+
+    # 更新图表布局
+    fig.update_layout(title_text="BMI Records Analysis", showlegend=False)
+
+    # 将图表以 HTML 格式返回
+    return fig.to_html()
+
 # 在应用启动时创建表
 with app.app_context():
     db.create_all()
