@@ -19,18 +19,12 @@ db = SQLAlchemy(app)
 
 # 定义 BMI 记录模型
 class BMIRecord(db.Model):
-    __tablename__ = 'bmi_record'  # 指定表名
+    __tablename__ = 'bmi_record'  # 指定表名为 bmi_record
     id = db.Column(db.Integer, primary_key=True)
     height = db.Column(db.Float, nullable=False)
     weight = db.Column(db.Float, nullable=False)
     bmi = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
-
-# 创建表的端点（可选）
-@app.route('/create_tables')
-def create_tables():
-    db.create_all()
-    return "Tables created successfully!"
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -46,8 +40,9 @@ def index():
     records = BMIRecord.query.all()
     return render_template('index.html', records=records)
 
+# 在应用启动时创建表
+with app.app_context():
+    db.create_all()
+
 if __name__ == '__main__':
-    # 创建表
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
