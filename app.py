@@ -25,7 +25,7 @@ class BMIRecord(db.Model):
         self.weight = weight
         self.bmi = bmi
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/templates', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         height = float(request.form['height'])
