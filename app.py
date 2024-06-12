@@ -39,5 +39,11 @@ def index():
     records = BMIRecord.query.all()
     return render_template('index.html', records=records)
 
+@app.route('/create_tables')
+def create_tables():
+    db.create_all()
+    return "Tables created successfully!"
+
+
 if __name__ == '__main__':
     app.run(debug=True)
