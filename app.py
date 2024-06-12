@@ -15,15 +15,18 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class BMIRecord(db.Model):
+    __tablename__ = 'bmi_record'  # 指定表名
     id = db.Column(db.Integer, primary_key=True)
     height = db.Column(db.Float, nullable=False)
     weight = db.Column(db.Float, nullable=False)
     bmi = db.Column(db.Float, nullable=False)
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
-    def __init__(self, height, weight, bmi):
-        self.height = height
-        self.weight = weight
-        self.bmi = bmi
+# 创建一个端点来手动触发表的创建
+@app.route('/create_tables')
+def create_tables():
+    db.create_all()
+    return "Tables created successfully!"
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
