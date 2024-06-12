@@ -69,8 +69,8 @@ def plot():
 
     # 创建折线图
     #fig = go.Figure()
-    fig.add_trace(go.Scatter(x=heights, y=bmis, mode='lines', name='BMI'))
-    fig.add_trace(go.Scatter(x=heights, y=weights, mode='lines', name='Weight'))
+    fig.add_trace(go.Scatter(x=heights, y=bmis, mode='lines', name='BMI'),row=2,col=1)
+    fig.add_trace(go.Scatter(x=heights, y=weights, mode='lines', name='Weight'),row=2,col=2)
 
     # 更新图表布局
     fig.update_layout(title_text="BMI and Weight Analysis", xaxis_title="Height (cm)")
